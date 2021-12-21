@@ -1,0 +1,19 @@
+run_mode = "debug"
+
+[app]
+page_size = 10
+jwt_secret = "123456"
+
+[server]
+port = "8080"
+read_timeout = 60
+write_timeout = 60
+
+[database]
+    [database.mysql]
+    user = "k1"
+    password = "123"
+    host = "127.0.0.1"
+    port = "3306"
+    dbname = "blog"
+    table_prefix = "blog_"
