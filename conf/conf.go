@@ -1,7 +1,7 @@
 package conf
 
 import (
-	"fmt"
+	"time"
 
 	"github.com/BurntSushi/toml"
 )
@@ -37,7 +37,12 @@ type Mysql struct {
 	TablePrefix string `toml:"table_prefix"`
 }
 
-var Conf Config
+var (
+	Conf Config
+
+	ReadTimeout  time.Duration
+	WriteTimeout time.Duration
+)
 
 const confPath = "conf/app.toml"
 
@@ -46,5 +51,6 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(Conf)
+	ReadTimeout = time.Duration(Conf.ReadTimeout) * time.Second
+	WriteTimeout = time.Duration(Conf.WriteTimeout) * time.Second
 }
