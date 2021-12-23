@@ -1,4 +1,4 @@
-package conf
+package configs
 
 import (
 	"time"
@@ -44,9 +44,9 @@ var (
 	WriteTimeout time.Duration
 )
 
-const confPath = "conf/app.toml"
+const confPath = "configs/app.toml"
 
-func init() {
+func Init() {
 	_, err := toml.DecodeFile(confPath, &Conf)
 	if err != nil {
 		panic(err)

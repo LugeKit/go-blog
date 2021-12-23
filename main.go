@@ -1,27 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
-	"github.com/k1/go-blog/conf"
-	_ "github.com/k1/go-blog/model"
-	"github.com/k1/go-blog/router"
+	"github.com/k1/go-blog/configs"
+	"github.com/k1/go-blog/internal/routers"
 )
 
-func main() {
-	r := router.InitRouter()
+func init() {
+	configs.Init()
+}
 
-	port := conf.Conf.Server.Port
-	readTimeout := conf.ReadTimeout
-	writeTimeout := conf.WriteTimeout
+func main() {
+	router := routers.NewRouter()
 	s := &http.Server{
-		Addr:           fmt.Sprintf(":%s", port),
-		Handler:        r,
-		ReadTimeout:    readTimeout,
-		WriteTimeout:   writeTimeout,
+		Addr:           ":8080",
+		Handler:        router,
+		ReadTimeout:    configs.ReadTimeout,
+		WriteTimeout:   configs.WriteTimeout,
 		MaxHeaderBytes: 1 << 20,
 	}
-
 	s.ListenAndServe()
 }
