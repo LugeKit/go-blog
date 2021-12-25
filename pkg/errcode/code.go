@@ -1,16 +1,13 @@
 package errcode
 
-const (
-	SUCCESS        = 200
-	ERROR          = 500
-	INVALID_PARAMS = 400
-
-	ERROR_EXIST_TAG         = 10001
-	ERROR_NOT_EXIST_TAG     = 10002
-	ERROR_NOT_EXIST_ARTICLE = 10003
-
-	ERROR_AUTH_CHECK_TOKEN_FAIL    = 20001
-	ERROR_AUTH_CHECK_TOKEN_TIMEOUT = 20002
-	ERROR_AUTH_TOKEN               = 20003
-	ERROR_AUTH                     = 20004
+var (
+	Success                   = newError(0, "success")
+	ServerError               = newError(10000000, "service internal error")
+	InvalidParams             = newError(10000001, "invalid params")
+	NotFound                  = newError(10000002, "path not found")
+	UnauthorizedAuth          = newError(10000003, "invalid appkey and appSecret")
+	UnauthorizedToken         = newError(10000004, "token not authorized")
+	TokenTimeout              = newError(10000005, "error token timeout")
+	UnauthorizedTokenGenerate = newError(10000006, "fail to generate token")
+	TooManyRequest            = newError(10000007, "too many request")
 )

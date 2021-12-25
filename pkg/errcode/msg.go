@@ -1,6 +1,9 @@
 package errcode
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 type Error struct {
 	Code    int      `json:"code"`
@@ -29,4 +32,27 @@ func (e *Error) WithDetails(details ...string) *Error {
 		newError.Details = append(newError.Details, d)
 	}
 	return &newError
+}
+
+func (e *Error) StatusCode() int {
+	switch e.Code {
+	case Success.Code:
+		return http.StatusOK
+	case ServerError.Code:
+		return http.StatusInternalServerError
+	case InvalidParams.Code:
+		return http.StatusBadRequest
+	case UnauthorizedAuth.Code:
+		fallthrough
+	case UnauthorizedToken.Code:
+		fallthrough
+	case TokenTimeout.Code:
+		fallthrough
+	case UnauthorizedTokenGenerate.Code:
+		return http.StatusUnauthorized
+	case TooManyRequest.Code:
+		return http.StatusTooManyRequests
+	default:
+		return http.StatusInternalServerError
+	}
 }
