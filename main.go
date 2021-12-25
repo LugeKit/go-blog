@@ -18,6 +18,10 @@ func init() {
 	initLogger()
 }
 
+// @title 博客系统
+// @version 1.0
+// @description my first go web proj
+// @termsOfService https://github.com/go-programming-tour-book
 func main() {
 	router := routers.NewRouter()
 	s := &http.Server{
