@@ -16,6 +16,7 @@ import (
 func init() {
 	initConfig()
 	initLogger()
+	initDatabase()
 }
 
 // @title 博客系统
