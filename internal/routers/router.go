@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/k1/go-blog/docs"
 	"github.com/k1/go-blog/internal/middleware"
-	"github.com/k1/go-blog/internal/models"
+	v1 "github.com/k1/go-blog/internal/routers/api/v1"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
@@ -16,8 +16,8 @@ func NewRouter() *gin.Engine {
 	r.Use(middleware.Translations())
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	tag := models.NewTag()
-	article := models.NewArticle()
+	tag := v1.NewTag()
+	article := v1.NewArticle()
 	apiv1 := r.Group("/api/v1")
 	{
 		apiv1.POST("/tags", tag.Create)
@@ -35,4 +35,8 @@ func NewRouter() *gin.Engine {
 	}
 
 	return r
+}
+
+func NewTag() {
+	panic("unimplemented")
 }
