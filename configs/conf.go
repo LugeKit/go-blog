@@ -9,10 +9,10 @@ type Config struct {
 }
 
 type App struct {
-	PageSize  int    `toml:"page_size"`
-	JWTSecret string `toml:"jwt_secret"`
-	LogPath   string `toml:"log_path"`
-	LogFile   string `toml:"log_file"`
+	DefaultPageSize int    `toml:"default_page_size"`
+	JWTSecret       string `toml:"jwt_secret"`
+	LogPath         string `toml:"log_path"`
+	LogFile         string `toml:"log_file"`
 }
 
 type Server struct {

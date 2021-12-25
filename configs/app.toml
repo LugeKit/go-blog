@@ -1,5 +1,5 @@
 [app]
-page_size = 10
+default_page_size = 10
 jwt_secret = "123456"
 log_path = "storage/logs"
 log_file = "app.log"
