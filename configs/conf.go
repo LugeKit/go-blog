@@ -35,10 +35,12 @@ type Database struct {
 }
 
 type Mysql struct {
-	User        string
-	Password    string
-	Host        string
-	Port        string
-	DBName      string `toml:"dbname"`
-	TablePrefix string `toml:"table_prefix"`
+	User         string
+	Password     string
+	Host         string
+	Port         string
+	DBName       string `toml:"dbname"`
+	TablePrefix  string `toml:"table_prefix"`
+	MaxIdelConns int    `toml:"max_idle_conns"`
+	MaxOpenConns int    `toml:"max_open_conns"`
 }
