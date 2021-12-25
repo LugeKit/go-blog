@@ -1,13 +1,8 @@
 package configs
 
-import (
-	"time"
-
-	"github.com/BurntSushi/toml"
-)
+import "time"
 
 type Config struct {
-	RunMode  string `toml:"run_mode"`
 	App      `toml:"app"`
 	Server   `toml:"server"`
 	Database `toml:"database"`
@@ -16,12 +11,23 @@ type Config struct {
 type App struct {
 	PageSize  int    `toml:"page_size"`
 	JWTSecret string `toml:"jwt_secret"`
+	LogPath   string `toml:"log_path"`
+	LogFile   string `toml:"log_file"`
 }
 
 type Server struct {
+	RunMode      string `toml:"run_mode"`
 	Port         string
-	ReadTimeout  int `toml:"read_timeout"`
-	WriteTimeout int `toml:"write_timeout"`
+	ReadTimeout  Duration `toml:"read_timeout"`
+	WriteTimeout Duration `toml:"write_timeout"`
+}
+
+type Duration time.Duration
+
+func (d *Duration) UnmarshalText(text []byte) error {
+	nd, err := time.ParseDuration(string(text))
+	*d = Duration(nd)
+	return err
 }
 
 type Database struct {
@@ -35,22 +41,4 @@ type Mysql struct {
 	Port        string
 	DBName      string `toml:"dbname"`
 	TablePrefix string `toml:"table_prefix"`
-}
-
-var (
-	Conf Config
-
-	ReadTimeout  time.Duration
-	WriteTimeout time.Duration
-)
-
-const confPath = "configs/app.toml"
-
-func Init() {
-	_, err := toml.DecodeFile(confPath, &Conf)
-	if err != nil {
-		panic(err)
-	}
-	ReadTimeout = time.Duration(Conf.ReadTimeout) * time.Second
-	WriteTimeout = time.Duration(Conf.WriteTimeout) * time.Second
 }
