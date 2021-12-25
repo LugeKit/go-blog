@@ -2,13 +2,14 @@ package main
 
 import (
 	"net/http"
+	"time"
 
-	"github.com/k1/go-blog/configs"
+	"github.com/k1/go-blog/global"
 	"github.com/k1/go-blog/internal/routers"
 )
 
 func init() {
-	configs.Init()
+	global.Init()
 }
 
 func main() {
@@ -16,8 +17,8 @@ func main() {
 	s := &http.Server{
 		Addr:           ":8080",
 		Handler:        router,
-		ReadTimeout:    configs.ReadTimeout,
-		WriteTimeout:   configs.WriteTimeout,
+		ReadTimeout:    time.Duration(global.Config.ReadTimeout),
+		WriteTimeout:   time.Duration(global.Config.WriteTimeout),
 		MaxHeaderBytes: 1 << 20,
 	}
 	s.ListenAndServe()
