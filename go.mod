@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/BurntSushi/toml v0.4.1
 	github.com/gin-gonic/gin v1.7.7
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gorm.io/gorm v1.22.4
 )
 
